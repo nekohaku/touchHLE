@@ -174,7 +174,7 @@ fn setvbuf(
     file_ptr: MutPtr<FILE>,
     mut buffer: MutVoidPtr,
     buffer_mode: i32,
-    buffer_size: GuestUSize
+    buffer_size: GuestUSize,
 ) -> i32 {
     // TODO: this is a stub
     set_errno(env, 0);
