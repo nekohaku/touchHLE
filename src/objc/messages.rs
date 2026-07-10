@@ -35,7 +35,11 @@ pub(super) struct ThreadInitializer {
 }
 
 fn maybe_initialize_class(env: &mut Environment, receiver: id) {
-    let class_host_object = env.objc.get_host_object(receiver).unwrap();
+    let maybe_class_host_object = env.objc.get_host_object(receiver);
+    if maybe_class_host_object.is_none() {
+        return;
+    }
+    let class_host_object = maybe_class_host_object.unwrap();
     let Some(&super::ClassHostObject {
         superclass,
         is_metaclass,
