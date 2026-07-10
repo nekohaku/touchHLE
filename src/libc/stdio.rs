@@ -169,6 +169,18 @@ fn fopen(env: &mut Environment, filename: ConstPtr<u8>, mode: ConstPtr<u8>) -> M
     }
 }
 
+fn setvbuf(
+    env: &mut Environment,
+    file_ptr: MutPtr<FILE>,
+    mut buffer: MutVoidPtr,
+    buffer_mode: i32,
+    buffer_size: GuestUSize
+) -> i32 {
+    // TODO: this is a stub
+    set_errno(env, 0);
+    return 0;
+}
+
 fn fread(
     env: &mut Environment,
     mut buffer: MutVoidPtr,
@@ -744,4 +756,5 @@ pub const FUNCTIONS: FunctionExports = &[
     export_c_func!(flockfile(_)),
     export_c_func!(ftrylockfile(_)),
     export_c_func!(funlockfile(_)),
+    export_c_func!(setvbuf(_, _, _, _)),
 ];
