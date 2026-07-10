@@ -1269,6 +1269,20 @@ fn glRenderbufferStorageOES(
         gles.RenderbufferStorageOES(target, internalformat, width, height)
     })
 }
+fn glRenderbufferStorage(
+    env: &mut Environment,
+    target: GLenum,
+    internalformat: GLenum,
+    width: GLsizei,
+    height: GLsizei,
+) {
+    // apply scale hack: give the app a larger framebuffer than it asked for
+    let factor = env.options.scale_hack.get() as GLsizei;
+    let (width, height) = (width * factor, height * factor);
+    with_ctx_and_mem(env, |gles, _mem| unsafe {
+        gles.RenderbufferStorageOES(target, internalformat, width, height)
+    })
+}
 fn glFramebufferRenderbufferOES(
     env: &mut Environment,
     target: GLenum,
@@ -1619,6 +1633,7 @@ pub const FUNCTIONS: FunctionExports = &[
     export_c_func!(glBindFramebufferOES(_, _)),
     export_c_func!(glBindRenderbufferOES(_, _)),
     export_c_func!(glRenderbufferStorageOES(_, _, _, _)),
+    export_c_func!(glRenderbufferStorage(_, _, _, _)),
     export_c_func!(glFramebufferRenderbufferOES(_, _, _, _)),
     export_c_func!(glFramebufferTexture2DOES(_, _, _, _, _)),
     export_c_func!(glGetFramebufferAttachmentParameterivOES(_, _, _, _)),
