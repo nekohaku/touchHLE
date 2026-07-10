@@ -171,14 +171,14 @@ fn fopen(env: &mut Environment, filename: ConstPtr<u8>, mode: ConstPtr<u8>) -> M
 
 fn setvbuf(
     env: &mut Environment,
-    file_ptr: MutPtr<FILE>,
-    mut buffer: MutVoidPtr,
-    buffer_mode: i32,
-    buffer_size: GuestUSize,
+    _file_ptr: MutPtr<FILE>,
+    _buffer: MutVoidPtr,
+    _buffer_mode: i32,
+    _buffer_size: GuestUSize,
 ) -> i32 {
     // TODO: this is a stub
     set_errno(env, 0);
-    return 0;
+    0
 }
 
 fn fread(
